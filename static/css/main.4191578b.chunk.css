@@ -1,0 +1,2 @@
+@import url(https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap);*{box-sizing:border-box;margin:0;padding:0;font-family:monospace,"Noto Sans TC"}.editableContent{flex:1 1;overflow-wrap:anywhere;font-size:1.5rem;color:#eee;padding:.25rem .5rem;border:1px solid transparent;border-radius:0;cursor:default;transition:color .3s ease,border-color .3s ease}.editableContent:focus{outline:none;border-bottom:1px solid #eee;cursor:text}.editableContent.isDone{text-decoration:line-through;color:#333}
+/*# sourceMappingURL=main.4191578b.chunk.css.map */
