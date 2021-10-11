@@ -1,10 +1,11 @@
-import { useState, useRef, useEffect } from 'react'
+import { useEffect } from 'react'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 import { NewTodoForm, TodoListWrapper } from './components'
-import colors from './constants/colors'
+import { selectTodos } from './redux/selectors'
 
 const Container = styled.div`
-  background: ${colors.bg01};
+  background: var(--bg-main);
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -21,14 +22,7 @@ const TodosContainer = styled.div`
 `
 
 function App() {
-  const id = useRef(1)
-  const [todos, setTodos] = useState(() => {
-    const todosData = JSON.parse(localStorage.getItem('todos')) || []
-    id.current = todosData.length ? todosData[0].id + 1 : 1
-    return todosData
-  })
-  const [newTodoContent, setNewTodoContent] = useState('')
-  const [filter, setFilter] = useState(null)
+  const todos = useSelector(selectTodos)
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos))
@@ -37,24 +31,11 @@ function App() {
   return (
     <Container>
       <TodosContainer>
-        <NewTodoForm
-          id={id}
-          todos={todos}
-          setTodos={setTodos}
-          newTodoContent={newTodoContent}
-          setNewTodoContent={setNewTodoContent}
-        />
-        {!!todos.length && (
-          <TodoListWrapper
-            todos={todos}
-            setTodos={setTodos}
-            filter={filter}
-            setFilter={setFilter}
-          />
-        )}
+        <NewTodoForm />
+        {!!todos.length && <TodoListWrapper />}
       </TodosContainer>
     </Container>
-  );
+  )
 }
 
-export default App;
+export default App

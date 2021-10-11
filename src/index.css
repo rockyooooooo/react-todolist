@@ -1,8 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&family=Noto+Sans+TC&display=swap');
+
+:root {
+  --gray-main: #eee;
+  --gray-dark: #777;
+  --gray-muted: #333;
+
+  --bg-main: #211f23;
+  --bg-hover: #27252b;
+
+  --transition-duration: 300ms;
+}
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: monospace, 'Noto Sans TC';
+  font-family: 'Noto Sans Mono', monospace, 'Noto Sans TC', sans-serif;
 }

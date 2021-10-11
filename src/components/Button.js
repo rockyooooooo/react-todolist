@@ -1,19 +1,18 @@
 import styled from 'styled-components'
-import colors from '../constants/colors'
 
 const Button = styled.button`
   background: transparent;
   font-size: 1rem;
-  color: ${colors.gray02};
+  color: var(--gray-dark);
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: none;
-  transition: color 300ms ease;
+  transition: color var(--transition-duration) ease;
   cursor: pointer;
   user-select: none;
 
   &:hover {
-    color: ${colors.white};
+    color: var(--gray-main);
   }
 `
 

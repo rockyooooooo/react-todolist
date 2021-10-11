@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import Button from './Button'
-import colors from '../constants/colors'
-import ContentEditable from './contentEditable/contentEditable'
-import './contentEditable/contentEditable.css';
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
+import Button from './Button'
+import ContentEditable from './contentEditable/contentEditable'
+import './contentEditable/contentEditable.css'
+import { deleteTodo, editTodo, toggleTodo } from '../redux/actions'
 
 const TodoItemWrapper = styled.li`
   position: relative;
@@ -14,13 +15,19 @@ const TodoItemWrapper = styled.li`
   gap: 0.5rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  transition: background 300ms ease;
+  transition: background var(--transition-duration) ease;
 
   &:hover button {
     opacity: 1;
   }
 
-  ${(props) => !props.$isChecked && `&:hover {background: ${colors.bg02};}`}
+  ${(props) =>
+    !props.$isChecked &&
+    `
+    &:hover {
+      background: var(--bg-hover);
+    }
+  `}
 `
 
 const TodoCheckBox = styled.input`
@@ -32,26 +39,33 @@ const TodoCheckBox = styled.input`
 const DeleteTodoButton = styled(Button)`
   opacity: 0;
   flex-shrink: 0;
-  transition: color 300ms ease, opacity 300ms ease;
+  transition: color var(--transition-duration) ease,
+    opacity var(--transition-duration) ease;
 `
 
-export default function TodoItem({ todo, handleDeleteTodoButtonClick, handleTodoCheckBoxChange, handleTodoContentUpdate }) {
+export default function TodoItem({ todo }) {
+  const dispatch = useDispatch()
   const { id, content, isChecked } = todo
-  const contentEditableClassName = `editableContent ${isChecked ? 'isDone' : ''}`
+  const contentEditableClassName = `editableContent ${
+    isChecked ? 'isDone' : ''
+  }`
+
   return (
     <TodoItemWrapper $isChecked={isChecked}>
       <TodoCheckBox
         type="checkbox"
         checked={isChecked}
-        onChange={() => handleTodoCheckBoxChange(id)}
+        onChange={() => dispatch(toggleTodo(id))}
       />
       <ContentEditable
         tagName="pre"
         className={contentEditableClassName}
         html={content}
-        onChange={(e) => handleTodoContentUpdate(id, e.target.value)}
+        onChange={(e) => dispatch(editTodo(id, e.target.value))}
       />
-      <DeleteTodoButton onClick={() => handleDeleteTodoButtonClick(id)}>刪除</DeleteTodoButton>
+      <DeleteTodoButton onClick={() => dispatch(deleteTodo(id))}>
+        刪除
+      </DeleteTodoButton>
     </TodoItemWrapper>
   )
 }
@@ -61,8 +75,5 @@ TodoItem.propTypes = {
     id: PropTypes.number.isRequired,
     content: PropTypes.string.isRequired,
     isChecked: PropTypes.bool.isRequired
-  }).isRequired,
-  handleDeleteTodoButtonClick: PropTypes.func.isRequired,
-  handleTodoCheckBoxChange: PropTypes.func.isRequired,
-  handleTodoContentUpdate: PropTypes.func.isRequired
+  }).isRequired
 }

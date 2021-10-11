@@ -2,21 +2,22 @@
   flex: 1;
   overflow-wrap: anywhere;
   font-size: 1.5rem;
-  color: #eee;
+  color: var(--gray-main);
   padding: 0.25rem 0.5rem;
   border: 1px solid transparent;
   border-radius: 0;
   cursor: default;
-  transition: color 300ms ease, border-color 300ms ease;
+  transition: color var(--transition-duration) ease,
+    border-color var(--transition-duration) ease;
 }
 
 .editableContent:focus {
   outline: none;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--gray-main);
   cursor: text;
 }
 
 .editableContent.isDone {
   text-decoration: line-through;
-  color: #333;
+  color: var(--gray-muted);
 }
